@@ -14,7 +14,7 @@ Quickly index files and folders and pull content from a remote registry.
 #### Index
 Index current directory and sub-directories based on file a JSON config file.
 
-```json
+```jsonc
 // registry.config.json
 // See a complete example in glitchkids/templates repository
 
