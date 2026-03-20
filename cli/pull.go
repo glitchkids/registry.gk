@@ -67,8 +67,10 @@ func CreatePullCommand() *cli.Command {
 				log.Fatalf("Missing arguments")
 			}
 
-			registry.PullFromRemoteRegistry(remoteRegistry, remoteRegistryName, registryName, outDir, force)
-
+			err = registry.PullFromRemoteRegistry(remoteRegistry, remoteRegistryName, registryName, outDir, force)
+			if err != nil {
+				log.Fatal(err)
+			}
 			return nil
 		},
 	}

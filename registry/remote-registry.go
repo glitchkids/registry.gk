@@ -128,8 +128,9 @@ func PullFromRemoteRegistry(remoteRegistry RemoteRegistry, remoteName string, re
 		return err
 	}
 
-	files := []index.RegistryFile{}
-	err = fetchRegistryItem(remoteRegistryItem.Url, registryIndexItem.Filename, &files)
+	// TODO Folder or files
+	folder := index.RegistryFolder{}
+	err = fetchRegistryItem(remoteRegistryItem.Url, registryIndexItem.Filename, &folder)
 	if err != nil {
 		return err
 	}
@@ -140,7 +141,7 @@ func PullFromRemoteRegistry(remoteRegistry RemoteRegistry, remoteName string, re
 	}
 
 	// TODO each files rewrite file
-	err = writeRegistryFiles(files, outDirAbsPath, force)
+	err = writeRegistryFiles(folder.Files, outDirAbsPath, force)
 	if err != nil {
 		return err
 	}

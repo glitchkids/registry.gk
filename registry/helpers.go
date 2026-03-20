@@ -97,7 +97,7 @@ func getRegistryItemByName(remoteRegistry RemoteRegistry, name string) (RemoteRe
 	return remoteRegistry[index], nil
 }
 
-func fetchJSON[T index.RegistryIndex | []index.RegistryFile](url string, ref *T) error {
+func fetchJSON[T index.RegistryIndex | index.RegistryFolder](url string, ref *T) error {
 	res, err := http.Get(url)
 	if err != nil {
 		return err
@@ -123,7 +123,7 @@ func fetchRegistryIndex(baseUrl string, ref *index.RegistryIndex) error {
 	return fetchJSON(finalUrl, ref)
 }
 
-func fetchRegistryItem[T []index.RegistryFile](baseUrl string, filename string, ref *T) error {
+func fetchRegistryItem[T index.RegistryFolder](baseUrl string, filename string, ref *T) error {
 	finalUrl := fmt.Sprintf("%v/%v", baseUrl, filename)
 	return fetchJSON(finalUrl, ref)
 }
