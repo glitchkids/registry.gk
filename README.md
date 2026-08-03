@@ -33,7 +33,7 @@ Le binaire s'appelle `registry_gk`.
 ## Vue d'ensemble
 
 ```
-┌─────────────────────┐     index      ┌──────────────────┐
+┌─────────────────────┐     index       ┌──────────────────┐
 │  registry.config    │ ──────────────► │  .registry/      │
 │  + vos templates    │                 │  index.json + …  │
 └─────────────────────┘                 └────────┬─────────┘
@@ -49,12 +49,16 @@ Le binaire s'appelle `registry_gk`.
                                         └──────────────────┘
 ```
 
-1. **`index`** — parcourt les dossiers déclarés dans `registry.config.json` et génère un registre JSON local.
+1. `index` — parcourt les dossiers déclarés dans `registry.config.json` et génère un registre JSON local.
 2. **Déploiement** — publiez le dossier de sortie (par ex. `.registry/`) sur une URL statique.
-3. **`add`** — enregistre l'URL de base du registre distant dans votre config utilisateur.
-4. **`pull`** — liste ou télécharge un template depuis ce registre.
+3. `add` — enregistre l'URL de base du registre distant dans votre config utilisateur.
+4. `pull` — liste ou télécharge un template depuis ce registre.
+
+
 
 ## Commandes
+
+
 
 ### `index`
 
@@ -64,6 +68,8 @@ Génère le registre à partir de `registry.config.json` dans le répertoire cou
 registry_gk index
 ```
 
+
+
 ### `add`
 
 Ajoute un registre distant. L'URL doit être la **base** du registre, **sans** `/index.json`.
@@ -71,6 +77,8 @@ Ajoute un registre distant. L'URL doit être la **base** du registre, **sans** `
 ```bash
 registry_gk add glitchkids https://example.com/path/to/registry
 ```
+
+
 
 ### `ls`
 
@@ -80,6 +88,8 @@ Liste les registres distants enregistrés localement.
 registry_gk ls
 ```
 
+
+
 ### `remove`
 
 Supprime un registre distant enregistré.
@@ -87,6 +97,8 @@ Supprime un registre distant enregistré.
 ```bash
 registry_gk remove glitchkids
 ```
+
+
 
 ### `pull`
 
@@ -102,12 +114,18 @@ Avec un nom de template : télécharge les fichiers dans le répertoire de sorti
 registry_gk pull glitchkids "Front/Vite-Svelte-UnoCSS" -o ./mon-projet
 ```
 
-| Option | Alias | Défaut | Description |
-|--------|-------|--------|-------------|
-| `--out` | `-o` | `.` | Répertoire de destination |
-| `--force` | `-f` | `false` | Écrase les fichiers existants |
+
+| Option    | Alias | Défaut  | Description                   |
+| --------- | ----- | ------- | ----------------------------- |
+| `--out`   | `-o`  | `.`     | Répertoire de destination     |
+| `--force` | `-f`  | `false` | Écrase les fichiers existants |
+
+
+
 
 ## Configuration
+
+
 
 ### `registry.config.json` (indexation)
 
@@ -142,20 +160,26 @@ Fichier lu par `registry_gk index` dans le répertoire courant.
 
 Un exemple complet est disponible dans le dépôt [glitchkids/templates](https://github.com/glitchkids/templates).
 
-| Champ | Description |
-|-------|-------------|
-| `output` | Dossier de sortie du registre généré (chemin local uniquement) |
-| `input.folders[].name` | Nom affiché dans l'index (peut contenir `/`) |
-| `input.folders[].path` | Chemin local du dossier à indexer |
-| `input.folders[].ignores.files` | Fichiers ou motifs glob (`*`) à exclure |
-| `input.folders[].ignores.folders` | Sous-dossiers à exclure |
+
+| Champ                             | Description                                                    |
+| --------------------------------- | -------------------------------------------------------------- |
+| `output`                          | Dossier de sortie du registre généré (chemin local uniquement) |
+| `input.folders[].name`            | Nom affiché dans l'index (peut contenir `/`)                   |
+| `input.folders[].path`            | Chemin local du dossier à indexer                              |
+| `input.folders[].ignores.files`   | Fichiers ou motifs glob (`*`) à exclure                        |
+| `input.folders[].ignores.folders` | Sous-dossiers à exclure                                        |
+
+
+
 
 ### Sortie générée
 
 Le dossier de sortie contient :
 
-- **`index.json`** — catalogue des templates : `{ "name", "filename" }`
+- `index.json` — catalogue des templates : `{ "name", "filename" }`
 - **Un fichier JSON par dossier** — nom dérivé du `name` (minuscules, `/` → `_`), ex. `front_vite-svelte-unocss.json`, avec le contenu de chaque fichier indexé
+
+
 
 ### Registres distants (config utilisateur)
 
@@ -187,11 +211,15 @@ registry_gk pull glitchkids
 registry_gk pull glitchkids "Modules/Node" -o ./mon-package
 ```
 
+
+
 ## Limitations connues
 
 - L'indexation de fichiers isolés (`input.files`) n'est pas encore implémentée
 - `pull` ne gère pour l'instant que les dossiers (pas les entrées fichier individuelles)
 - Sans `--force`, le comportement face aux fichiers existants est limité (pas de prompt interactif)
+
+
 
 ## Licence
 
